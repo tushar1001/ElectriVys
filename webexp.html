@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectriVys - EV Discovery & Charging</title>
+    <!-- Bootstrap CSS for layout and styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Base Styling */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #ffffff;
+            padding: 0.5em; /* Reduced padding for compactness */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Logo and Animation Container */
+        .logo-animation-container {
+            position: relative;
+            width: 20%; /* Made wider for better visibility of animations */
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* ElectriVys Logo Animation */
+        .logo-container {
+            font-family: Arial, sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            white-space: nowrap;
+            visibility: hidden;
+        }
+
+        .logo-container span {
+            display: inline-block;
+            opacity: 0;
+        }
+
+        .ev, .lectri {
+            color: #32CD32;
+        }
+        .v, .ys {
+            color: #006400;
+        }
+
+        /* Icon styling for electricity, spare parts, and EV */
+        .icon-container {
+    font-size: 3em;
+    position: absolute;
+    top: 20%; /* Higher placement to avoid cuts */
+    right: 0; /* Start at the right edge of the viewport */
+    opacity: 1; /* Visible from the start */
+    z-index: 1;
+    
+transition: opacity 0.5s ease;
+}
+
+
+        /* Metallic 3D text styling */
+        .metallic-text {
+            font-size: 1.3em;
+            color: #b0c4de;
+            text-transform: uppercase;
+            font-weight: bold;
+            opacity: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            animation: metallicFadeIn 2s forwards 6s;
+        }
+
+        /* ElectriVys Logo Animation */
+        .logo-container .ev {
+            animation: fadeIn 1s ease forwards;
+        }
+        .logo-container .lectri {
+            transform: translateX(0);
+            animation: slideInLectri 1s 1s forwards;
+        }
+        .logo-container .v {
+            opacity: 1;
+            transform: translateX(0);
+            animation: moveVRight 1s 1s forwards;
+        }
+        .logo-container .ys {
+            opacity: 0;
+            transform: translateX(-1em);
+            animation: slideInYS 1s 1s forwards;
+        }
+
+        /* Icon animations */
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes slideInLectri { 0% { opacity: 0; transform: translateX(-100%); } 100% { opacity: 1; transform: translateX(-0.7em); } }
+        @keyframes moveVRight { 0% { opacity: 1; transform: translateX(0); } 100% { opacity: 1; transform: translateX(2.3em); } }
+        @keyframes slideInYS { 0% { opacity: 0; transform: translateX(0.6); } 100% { opacity: 1; transform: translateX(-0.1em); } }
+        @keyframes metallicFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } 
+@keyframes evMoveAcross {
+    0% { transform: translateX(0); opacity: 1; } /* Start on the right edge */
+    100% { transform: translateX(0); opacity: 1; } /* Move across to the left without leaving the viewport */
+}}
+        
+        /* EV two-wheeler moving from right to left */
+      
+.icon-container {
+        font-size: 3em;
+        position: absolute;
+        top: 15%; /* Raise higher to avoid getting cut off */
+        right: -10vw; /* Start slightly off-screen on the right */
+        opacity: 0;
+        z-index: 1;}
+@keyframes evMoveAcross {
+            0% { transform: translateX(50vw); opacity: 1; }
+            100% { transform: translateX(-100vw); opacity: 1; }
+        }
+
+        /* Hero and Sections Styling */
+        .hero, .section, .app-download, footer {
+            padding: 1em; /* Reduced padding for compactness */
+            text-align: center;
+        }
+
+        #home.hero {
+            background-color: #66cc99;
+            color: white;
+        }
+
+        /* Filters styling */
+        .filters {
+            margin-top: 1em; /* Reduced margin */
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+        }
+
+        .page-section { display: none; }
+        .active { display: block; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-animation-container">
+        <div class="logo-container" id="logo">
+            <span class="ev">E</span><span class="v">V</span><span class="lectri">lectri</span><span class="ys">ys</span>
+        </div>
+        <div class="icon-container" id="icon-container">⚡</div>
+        <div class="metallic-text" id="software-text">Software on Wheels</div>
+    </div>
+
+    <nav>
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('home')">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('ev-models')">EV Models</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('charging-stations')">Charging Stations</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('pricing')">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Home Section -->
+<section id="home" class="hero page-section active">
+    <h1>Discover Your Perfect EV</h1>
+    <h4>Software on Wheels</h4>
+    <p>Find the ideal electric two-wheeler and compatible charging stations near you.</p>
+
+<div class="real-time-battery">
+
+<div class="ev-news">
+    <h5>Latest EV News</h5>
+    <ul id="news-feed" class="news-list">
+        <li>New EV Model X with 300km range launched!</li>
+        <li>Electric vehicle subsidies announced.</li>
+    </ul>
+</div>
+
+    <h5>Battery Status</h5>
+    <div id="battery-level" class="battery-display">Battery Level: <span id="battery-percentage">80%</span></div>
+    <small>Range left: <span id="estimated-range">120 km</span></small>
+</div>
+
+    <button class="btn btn-primary">Explore Now</button>
+
+    <!-- Filters Section -->
+    <div class="filters">
+        <select class="form-control">
+            <option value="">Select EV Type</option>
+            <option value="scooter">Scooter</option>
+            <option value="motorbike">Motorbike</option>
+            <option value="bicycle">Electric Bicycle</option>
+        </select>
+        <select class="form-control">
+            <option value="">Select Range</option>
+            <option value="0-50">0-50 km</option>
+            <option value="50-100">50-100 km</option>
+            <option value="100-200">100-200 km</option>
+            <option value="200+">200+ km</option>
+        </select>
+        <select class="form-control">
+            <option value="">Select Price Range</option>
+            <option value="low">Under ₹10,000</option>
+            <option value="medium">₹10,000 - ₹50,000</option>
+            <option value="high">Above ₹50,000</option>
+        </select>
+        <button class="btn btn-success">Filter</button>
+    </div>
+</section>
+
+<!-- EV Models Section -->
+<section id="ev-models" class="section page-section">
+    <h3>Our EV Two-Wheeler Collection</h3>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="vehicle1.jpg" class="card-img-top" alt="Vehicle 1">
+                <div class="card-body">
+                    <h5 class="card-title">Model A</h5>
+                    <p class="card-text">Range: 100 km per charge</p>
+                    <a href="#" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Charging Stations Section -->
+<section id="charging-stations" class="section page-section">
+    <h3>Charging Stations Near You</h3>
+    <p>Locate nearby EV charging stations to keep your vehicle powered up and ready to go.</p>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="section page-section">
+    <h3>Pricing Plans</h3>
+    <p>Choose a plan that suits your needs and enjoy exclusive benefits.</p>
+    <ul>
+        <li>Basic Plan - Free</li>
+        <li>Premium Plan - ₹799/month</li>
+        <li>Pro Plan - ₹1499/month</li>
+    </ul>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section page-section">
+    <h3>Contact Us</h3>
+    <p>Email: support@electrivys.com</p>
+    <p>Phone: +123 456 7890</p>
+    <p>Address: 123 Electric Avenue, EV City</p>
+</section>
+
+<footer class="text-center py-3 bg-dark text-white">
+    <p>&copy; 2024 ElectriVys. All rights reserved.</p>
+</footer>
+
+
+<!-- Chatbot Button and Modal -->
+<div id="chatbot-container">
+    <button id="chatbot-button" onclick="toggleChatbot()">💬 Chat</button>
+    <div id="chatbot-modal">
+        <div id="chatbot-header">
+            <h5>ElectriVys Support</h5>
+            <button onclick="toggleChatbot()">✖</button>
+        </div>
+        <div id="chatbot-content">
+            <p>Welcome to ElectriVys! How can I help you?</p>
+        </div>
+        <input type="text" id="chatbot-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+    </div>
+</div>
+
+<style>
+
+.ev-news {
+    margin-top: 1em;
+    background-color: #f9f9f9;
+    padding: 0.5em;
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+.news-list {
+    list-style-type: none;
+    padding: 0;
+    font-size: 0.9em;
+    color: #333;
+}
+.news-list li {
+    margin-bottom: 0.5em;
+}
+
+
+.real-time-battery {
+    margin-top: 1em;
+    background-color: #f1f1f1;
+    padding: 0.5em;
+    border-radius: 8px;
+    display: inline-block;
+}
+.battery-display {
+    font-size: 1.2em;
+    color: #32CD32;
+}
+
+    /* Chatbot styling */
+    #chatbot-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    #chatbot-button {
+        background-color: #006400;
+        color: #fff;
+        border: none;
+        padding: 0.7em;
+        border-radius: 50%;
+        font-size: 1.5em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+    }
+
+    #chatbot-modal {
+        display: none;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    #chatbot-header {
+        background-color: #32CD32;
+        color: white;
+        padding: 0.5em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #chatbot-content {
+        padding: 1em;
+        max-height: 300px;
+        overflow-y: auto;
+        font-size: 0.9em;
+    }
+
+    #chatbot-input {
+        width: 100%;
+        padding: 0.5em;
+        border: none;
+        border-top: 1px solid #ddd;
+        outline: none;
+    }
+</style>
+
+<script>
+    function toggleChatbot() {
+        const chatbotModal = document.getElementById('chatbot-modal');
+        chatbotModal.style.display = chatbotModal.style.display === 'none' || !chatbotModal.style.display ? 'block' : 'none';
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            const inputField = document.getElementById('chatbot-input');
+            const userMessage = inputField.value;
+            if (userMessage.trim()) {
+                displayMessage(userMessage, 'user');
+                inputField.value = '';
+                // Simulate bot response
+                setTimeout(() => displayMessage('Thank you for reaching out! How can I assist you today?', 'bot'), 1000);
+            }
+        }
+    }
+
+    function displayMessage(message, sender) {
+        const messageElem = document.createElement('p');
+        messageElem.textContent = message;
+        messageElem.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+        document.getElementById('chatbot-content').appendChild(messageElem);
+    }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const logo = document.getElementById('logo');
+        const iconContainer = document.getElementById('icon-container');
+        logo.style.visibility = 'visible';
+
+        // Wait for the ElectriVys text animation to complete
+        setTimeout(() => {
+            // Show "⚡" symbol
+            iconContainer.style.opacity = '1';
+            iconContainer.innerHTML = '⚡';
+
+            // Transition to "spare parts" icon after 1 second
+            setTimeout(() => {
+                iconContainer.innerHTML = '🔧'; // Spare parts icon
+            }, 50);
+
+            // Transition to EV two-wheeler and move it from right to left
+            setTimeout(() => {
+                iconContainer.innerHTML = '🛵'; // EV two-wheeler icon
+                iconContainer.style.animation = 'evMoveAcross 5s forwards';
+            }, 600);
+
+            // Show "Software on Wheels" metallic text after EV moves across
+            setTimeout(() => {
+                document.getElementById('software-text').style.opacity = '1';
+            }, 2000);
+        }, 1000); // Delay to start animations after ElectriVys text animation
+    });
+
+    function showSection(sectionId) {
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
