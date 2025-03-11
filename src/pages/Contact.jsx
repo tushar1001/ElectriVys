@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaIconName } from "react-icons/fa"; 
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
