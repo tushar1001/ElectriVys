@@ -1,0 +1,78 @@
+/* Logo and Animation Container */
+.logo-animation-container {
+    position: relative;
+    width: 20%;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* ElectriVys Logo Animation */
+.logo-container {
+    font-family: Arial, sans-serif;
+    font-size: 2.5em;
+    font-weight: bold;
+    white-space: nowrap;
+    visibility: hidden;
+}
+
+.logo-container span {
+    display: inline-block;
+    opacity: 0;
+}
+
+.ev, .lectri {
+    color: #32CD32;
+}
+.v, .ys {
+    color: #006400;
+}
+
+/* Icon styling for electricity */
+.icon-container {
+    font-size: 3em;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    opacity: 1;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* Metallic 3D text styling */
+.metallic-text {
+    font-size: 1.3em;
+    color: #b0c4de;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    animation: metallicFadeIn 2s forwards 6s;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* Animations */
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes slideInLectri { 0% { opacity: 0; transform: translateX(-100%); } 100% { opacity: 1; transform: translateX(-0.7em); } }
+@keyframes moveVRight { 0% { opacity: 1; transform: translateX(0); } 100% { opacity: 1; transform: translateX(2.3em); } }
+@keyframes slideInYS { 0% { opacity: 0; transform: translateX(0.6em); } 100% { opacity: 1; transform: translateX(-0.1em); } }
+@keyframes metallicFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+/* Apply animations */
+.logo-container .ev {
+    animation: fadeIn 1s ease forwards;
+}
+.logo-container .lectri {
+    transform: translateX(0);
+    animation: slideInLectri 1s 1s forwards;
+}
+.logo-container .v {
+    opacity: 1;
+    transform: translateX(0);
+    animation: moveVRight 1s 1s forwards;
+}
+.logo-container .ys {
+    opacity: 0;
+    transform: translateX(-1em);
+    animation: slideInYS 1s 1s forwards;
+}

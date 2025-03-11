@@ -1,0 +1,45 @@
+import React from "react";
+
+const EVCard = ({ ev }) => {
+  return (
+    <div className="relative bg-white/90 backdrop-blur-xl shadow-lg rounded-2xl p-6 w-full md:w-80 text-center transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-orange-500">
+      
+      {/* 🚗 EV Image */}
+      <div className="relative">
+        {ev.image ? (
+          <img 
+            src={ev.image} 
+            alt={`${ev.brand} ${ev.model}`} 
+            className="h-48 w-full object-cover rounded-xl shadow-md hover:scale-105 transition-all duration-300"
+          />
+        ) : (
+          <div className="h-48 w-full flex items-center justify-center bg-gray-200 rounded-xl">
+            <p className="text-gray-500">Image Not Found</p>
+          </div>
+        )}
+      </div>
+
+      {/* 🚗 EV Details */}
+      <h3 className="text-2xl font-bold mt-4 text-gray-900">{ev.brand} {ev.model}</h3>
+      <p className="text-sm text-gray-600 mt-1">⚡ Type: {ev.type}</p>
+      <p className="text-sm text-gray-600">🔋 Range: {ev.range}</p>
+
+      {/* 💰 Price */}
+      <div className="mt-4">
+        <span className="bg-orange-500 text-white px-6 py-2 rounded-lg font-semibold text-md shadow-lg">
+          {ev.price}
+        </span>
+      </div>
+
+      {/* 🚀 CTA Button */}
+      <button className="mt-5 px-6 py-3 w-full bg-[#66cc99] text-white font-bold rounded-xl shadow-md hover:bg-[#57b88f] transition-all duration-300 hover:scale-105">
+        View Details 🚀
+      </button>
+
+      {/* ✨ Glow Effect */}
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#66cc99] to-[#ff9966] blur-md opacity-20 hover:opacity-40 transition-all duration-500"></div>
+    </div>
+  );
+};
+
+export default EVCard;

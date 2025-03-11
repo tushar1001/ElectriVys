@@ -1,0 +1,134 @@
+/* Logo and Animation Container */
+.logo-animation-container {
+    position: relative;
+    width: 220px;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Initially only EV is shown */
+.ev-only {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #32CD32;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Logo Animation */
+.logo-container {
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* EV expands into ElectriVys smoothly */
+.expand-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+    display: inline-block;
+    transform-origin: center;
+}
+
+/* Smooth expansion of "E" into "Electri" */
+.expand-electri {
+    width: 1.5rem;
+    letter-spacing: 0.2em;
+    opacity: 1;
+    display: inline-block;
+    overflow: hidden;
+    animation: expandElectri 1s ease-in-out forwards;
+}
+
+/* Smooth expansion of "V" into "Vys" */
+.expand-vys {
+    width: 1.5rem;
+    letter-spacing: 0.1em;
+    opacity: 1;
+    display: inline-block;
+    overflow: hidden;
+    animation: expandVys 0.8s ease-in-out forwards;
+}
+
+/* Final Full Logo */
+.full-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Fade in effect */
+.full-logo.fade-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Logo color styling (After Expansion) */
+.full-logo .electri, .expand-text .electri { color: #32CD32; } /* Light Green */
+.full-logo .vys, .expand-text .vys { color: #006400; } /* Dark Green */
+
+/* EV Initial Colors */
+.expand-text .ev-light { color: #32CD32; } /* Light Green */
+.expand-text .ev-dark { color: #006400; } /* Dark Green */
+
+/* Icon styling */
+.icon-container {
+    font-size: 1.8rem;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    opacity: 1;
+    z-index: 1;
+    animation: evMoveAcross 6s linear forwards; /* ⏳ Slower icon animation */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Metallic 3D text styling */
+.metallic-text {
+    font-size: 1rem;
+    color: #b0c4de;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    animation: metallicFadeIn 2s forwards 2s;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* Keyframe Animations */
+@keyframes expandElectri {
+    0% { width: 1.5rem; letter-spacing: 0.2em; opacity: 1; }
+    50% { width: 5rem; letter-spacing: 0.1em; opacity: 1; }
+    100% { width: 7rem; letter-spacing: 0em; opacity: 1; }
+}
+
+@keyframes expandVys {
+    0% { width: 1.5rem; letter-spacing: 0.1em; opacity: 1; }
+    50% { width: 3rem; letter-spacing: 0.05em; opacity: 1; }
+    100% { width: 4rem; letter-spacing: 0em; opacity: 1; }
+}
+
+@keyframes evMoveAcross {
+    0% { transform: translateX(50vw); opacity: 1; }
+    100% { transform: translateX(-100vw); opacity: 1; }
+}
+
+@keyframes metallicFadeIn { 
+    0% { opacity: 0; } 
+    100% { opacity: 1; } 
+}
+
+/* Hide icon smoothly */
+.icon-container {
+    transition: opacity 0.5s ease-in-out;
+}
