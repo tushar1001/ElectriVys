@@ -12,7 +12,7 @@ const EVModels = () => {
       {visibleEVs < evOptions.length && (
         <div className="text-center mt-8">
           <button
-            onClick={() => setVisibleEVs(visibleEVs + 8)} // ✅ Load 8 more on click
+            onClick={() => setVisibleEVs(visibleEVs + 8)}
             className="px-6 py-3 bg-[#66cc99] text-white rounded-lg font-semibold shadow-md hover:bg-[#57b88f] hover:scale-105 transition-all duration-300"
           >
             View More EVs 🚗

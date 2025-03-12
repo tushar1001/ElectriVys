@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+ import { useEffect } from "react";
 import "../styles/logoAnimation.css";
 
 const LogoAnimation = () => {
@@ -6,12 +6,13 @@ const LogoAnimation = () => {
     const logo = document.getElementById("logo");
     if (logo) logo.style.visibility = "visible";
 
+    // Start animations after 2 seconds
     setTimeout(() => {
       const elements = {
         lectri: document.querySelector(".lectri"),
         v: document.querySelector(".v"),
         ys: document.querySelector(".ys"),
-        electricity: document.querySelector(".electricity"),
+        electricity: document.querySelector(".electricity")
       };
 
       if (elements.lectri) elements.lectri.style.opacity = "1";
@@ -27,9 +28,10 @@ const LogoAnimation = () => {
         <span className="v">V</span>
         <span className="lectri">lectri</span>
         <span className="ys">ys</span>
-        <span className="electricity">🛵</span>
+        <span className="electricity">⚡🛵</span>
       </div>
-
+      
+     
       <div className="software-text">Software on Wheels</div>
     </div>
   );
