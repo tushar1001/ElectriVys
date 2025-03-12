@@ -1,134 +1,127 @@
-/* Logo and Animation Container */
-.logo-animation-container {
-    position: relative;
-    width: 220px;
-    overflow: hidden;
-    text-align: center;
+/* Base Styling */
+body {
+    display: block; /* Allow natural positioning */
+    margin: 0;
+    background-color: #ffffff;
+    text-align: center; /* Ensures centered text */
 }
 
-/* Initially only EV is shown */
-.ev-only {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #32CD32;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
-
-/* Logo Animation */
+/* Container for the animation */
 .logo-container {
     font-family: Arial, sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.8em;
     font-weight: bold;
     white-space: nowrap;
-    visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    visibility: visible; /* Ensure it is visible */
+    position: relative;
 }
 
-/* EV expands into ElectriVys smoothly */
-.expand-text {
-    font-size: 1.8rem;
-    font-weight: bold;
-    white-space: nowrap;
+/* Initial styling for each part */
+.logo-container span {
     display: inline-block;
-    transform-origin: center;
+    opacity: 0; /* Make sure text is visible */
 }
 
-/* Smooth expansion of "E" into "Electri" */
-.expand-electri {
-    width: 1.5rem;
-    letter-spacing: 0.2em;
-    opacity: 1;
-    display: inline-block;
-    overflow: hidden;
-    animation: expandElectri 1s ease-in-out forwards;
+/* Colors */
+.ev, .lectri {
+    color: #32CD32; /* Light green */
 }
 
-/* Smooth expansion of "V" into "Vys" */
-.expand-vys {
-    width: 1.5rem;
-    letter-spacing: 0.1em;
-    opacity: 1;
-    display: inline-block;
-    overflow: hidden;
-    animation: expandVys 0.8s ease-in-out forwards;
+.v, .ys {
+    color: #006400; /* Dark green */
 }
 
-/* Final Full Logo */
-.full-logo {
-    font-size: 2rem;
-    font-weight: bold;
-    display: inline-block;
+.electricity {
+    color: #FFD700;
+    opacity: 0; /* Ensure it's visible */   
+    animation: fadeInElectricity 1s 3s forwards;
+}
+
+/* Fix animations */
+.logo-container .ev {
+    animation: fadeIn 1s ease forwards;
+}
+
+.logo-container .lectri {
+    transform: translateX(0);
+    animation: slideInLectri 1s 1s forwards;
+}
+
+.logo-container .v {
+    opacity: 1; 
+    transform: translateX(0);
+    animation: moveVRight 1s 1s forwards;
+    
+}
+
+.logo-container .ys {
     opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateX(-1em);
+    animation: slideInYS 1s 1s forwards;
 }
 
-/* Fade in effect */
-.full-logo.fade-in {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Logo color styling (After Expansion) */
-.full-logo .electri, .expand-text .electri { color: #32CD32; } /* Light Green */
-.full-logo .vys, .expand-text .vys { color: #006400; } /* Dark Green */
-
-/* EV Initial Colors */
-.expand-text .ev-light { color: #32CD32; } /* Light Green */
-.expand-text .ev-dark { color: #006400; } /* Dark Green */
-
-/* Icon styling */
+/* Icon container */
 .icon-container {
-    font-size: 1.8rem;
+    font-size: 1.8em;
     position: absolute;
-    top: 10px;
+    top: 10%;
+    right: 10px;
+    opacity: 1; /* Ensure visibility */
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideInLectri {
+    0% { opacity: 0; transform: translateX(-100%); }
+    100% { opacity: 1; transform: translateX(-0.7em); }
+}
+
+@keyframes moveVRight {
+    0% { opacity: 1; transform: translateX(0); } /* "V" starts right next to "E" */
+    100% { opacity: 1; transform: translateX(2.3em); } /* Ensure "V" lands just before "ys" */
+}
+
+@keyframes slideInYS {
+    0% { opacity: 0; transform: translateX(0.6); } /* Start at "V" */
+    100% { opacity: 1; transform: translateX(-0.1em); } /* Move "ys" to final position */
+}
+
+@keyframes fadeInElectricity {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Icon container */
+.icon-container {
+    font-size: 1.8em; /* Slightly reduced from 2em */
+    position: absolute;
+    top: 10%;
     right: 0;
-    opacity: 1;
-    z-index: 1;
-    animation: evMoveAcross 6s linear forwards; /* ⏳ Slower icon animation */
-    transition: opacity 0.5s ease-in-out;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease;
 }
 
-/* Metallic 3D text styling */
-.metallic-text {
-    font-size: 1rem;
-    color: #b0c4de;
-    text-transform: uppercase;
-    font-weight: bold;
-    opacity: 0;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    animation: metallicFadeIn 2s forwards 2s;
-    white-space: nowrap;
-    display: inline-block;
-}
-
-/* Keyframe Animations */
-@keyframes expandElectri {
-    0% { width: 1.5rem; letter-spacing: 0.2em; opacity: 1; }
-    50% { width: 5rem; letter-spacing: 0.1em; opacity: 1; }
-    100% { width: 7rem; letter-spacing: 0em; opacity: 1; }
-}
-
-@keyframes expandVys {
-    0% { width: 1.5rem; letter-spacing: 0.1em; opacity: 1; }
-    50% { width: 3rem; letter-spacing: 0.05em; opacity: 1; }
-    100% { width: 4rem; letter-spacing: 0em; opacity: 1; }
-}
-
+/* EV Two-Wheeler Moving */
 @keyframes evMoveAcross {
     0% { transform: translateX(50vw); opacity: 1; }
     100% { transform: translateX(-100vw); opacity: 1; }
 }
 
-@keyframes metallicFadeIn { 
-    0% { opacity: 0; } 
-    100% { opacity: 1; } 
+
+.software-text {
+    font-size: 1em; /* Slightly reduced from 1.1em */
+    color: #b0c4de;
+    opacity: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    animation: fadeInSoftwareText 2s forwards 2s; /* Appears after 6s */
 }
 
-/* Hide icon smoothly */
-.icon-container {
-    transition: opacity 0.5s ease-in-out;
+@keyframes fadeInSoftwareText {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }

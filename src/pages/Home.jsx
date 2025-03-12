@@ -53,12 +53,12 @@ const Home = () => {
             className="mt-6 bg-white text-[#66cc99] px-6 py-3 rounded-lg font-bold shadow-md 
                       hover:bg-gray-200 transition duration-300"
           >
-            Get Started 🚀
+            Get Started 🚗
           </motion.button>
         </motion.div>
       </section>
 
-      {/* Popup Component */}
+      {/* Popup Component */} 
       <UserJourneyPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
@@ -104,7 +104,7 @@ const Home = () => {
                   className="px-6 py-3 text-lg font-semibold bg-gradient-to-r from-[#ff6600] to-[#ff4500] 
                              text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  View More EVs 🚀
+                  View More EVs 🚗
                 </motion.button>
               </div>
             )}
