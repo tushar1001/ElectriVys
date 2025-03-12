@@ -30,10 +30,6 @@ const Contact = () => {
             <span className="hover:text-green-800 transition-all">support@electrivys.com</span>
           </div>
           <div className="flex items-center space-x-3 sm:space-x-4 text-sm sm:text-lg">
-            <FaPhone className="text-green-600 text-xl sm:text-2xl" />
-            <span className="hover:text-green-800 transition-all">+91 9717418636</span>
-          </div>
-          <div className="flex items-center space-x-3 sm:space-x-4 text-sm sm:text-lg">
             <FaMapMarkerAlt className="text-green-600 text-xl sm:text-2xl" />
             <span className="hover:text-green-800 transition-all">Cyber Park, Gurgaon</span>
           </div>
