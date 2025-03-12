@@ -138,6 +138,7 @@ const evOptions = [
     image: okinawaRidgePlus,
   },
   {
+    id: 12,
     brand: "Hero Electric",
     model: "Flash",
     type: "scooter",
@@ -146,7 +147,7 @@ const evOptions = [
     image: heroFlash,
   },
   {
-    id: 12,
+    id: 13,
     brand: "BattRE",
     model: "LoEV",
     type: "scooter",
@@ -155,7 +156,7 @@ const evOptions = [
     image: battreLoEV,
   },
   {
-    id: 13,
+    id: 14,
     brand: "Kabira",
     model: "KM3000",
     type: "motorbike",
@@ -164,7 +165,7 @@ const evOptions = [
     image: kabiraKM3000,
   },
   {
-    id: 14,
+    id: 15,
     brand: "Avon",
     model: "E Scoot",
     type: "scooter",
@@ -173,7 +174,7 @@ const evOptions = [
     image: avonEScoot,
   },
   {
-    id: 15,
+    id: 16,
     brand: "Lohia",
     model: "Comfort",
     type: "scooter",
@@ -182,7 +183,7 @@ const evOptions = [
     image: lohiaComfort,
   },
   {
-    id: 16,
+    id: 17,
     brand: "Hero Electric",
     model: "NYX",
     type: "scooter",
@@ -191,7 +192,7 @@ const evOptions = [
     image: heroNYX,
   },
   {
-    id: 17,
+    id: 18,
     brand: "Ampere",
     model: "V48",
     type: "scooter",
@@ -200,7 +201,7 @@ const evOptions = [
     image: ampereV48,
   },
   {
-    id: 18,
+    id: 19,
     brand: "Tunwal",
     model: "Sport 63",
     type: "motorbike",

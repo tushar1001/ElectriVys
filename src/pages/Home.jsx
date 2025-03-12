@@ -4,6 +4,7 @@ import EVCard from "../components/EVCard";
 import evOptions from "../data/evOptions";
 import UserJourneyPopup from "../components/UserJourneyPopup";
 import FilterBar from "../components/FilterBar";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [filteredEVs, setFilteredEVs] = useState(evOptions);
@@ -14,23 +15,10 @@ const Home = () => {
     const filtered = evOptions.filter((ev) => {
       return Object.keys(filters).every((key) => {
         if (!filters[key] || filters[key] === "All") return true;
-        if (key === "range") {
-          return (
-            (filters[key] === "0-50 km" && ev.range === "0-50 km") ||
-            (filters[key] === "50-100 km" && ev.range === "50-100 km") ||
-            (filters[key] === "100-200 km" && ev.range === "100-200 km") ||
-            (filters[key] === "200+ km" && ev.range === "200+ km")
-          );
-        }
-        if (key === "type") {
-          return ev.type === filters[key];
-        }
-        if (key === "brand") {
-          return ev.brand === filters[key];
-        }
-        if (key === "battery") {
-          return ev.battery === filters[key];
-        }
+        if (key === "range") return ev.range === filters[key];
+        if (key === "type") return ev.type === filters[key];
+        if (key === "brand") return ev.brand === filters[key];
+        if (key === "battery") return ev.battery === filters[key];
         return ev[key] === filters[key];
       });
     });
@@ -38,64 +26,93 @@ const Home = () => {
     setVisibleCount(8);
   };
 
-
-
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <section className="hero bg-[#66cc99] text-white text-center py-20 mt-22 md:mt-18 transition-all duration-300">
-        <div className="max-w-4xl mx-auto px-6">
-          <h1 className="text-5xl font-extrabold leading-tight drop-shadow-md">
+      <section className="hero bg-[#66cc99] text-white text-center py-20 mt-20 md:py-26 px-6 sm:mt-24">
+        <motion.div
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
             Discover Your Perfect EV
           </h1>
-          <h4 className="text-xl italic mt-3 opacity-90">⚡ Software on Wheels</h4>
-          <p className="mt-4 text-lg opacity-90">
-            Find the ideal electric two-wheeler and compatible charging stations near you.
+          <h4 className="text-lg md:text-xl italic mt-3 opacity-90">
+            ⚡ Software on Wheels
+          </h4>
+          <p className="mt-4 text-md md:text-lg opacity-90">
+            Find the ideal electric two-wheeler and compatible charging stations
+            near you.
           </p>
-          <button
+          <motion.button
             onClick={() => setIsPopupOpen(true)}
-            className="mt-6 inline-block bg-white text-[#66cc99] px-6 py-3 rounded-lg font-bold shadow-md hover:bg-gray-200 hover:scale-105 transition duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-6 bg-white text-[#66cc99] px-6 py-3 rounded-lg font-bold shadow-md 
+                      hover:bg-gray-200 transition duration-300"
           >
             Get Started 🚀
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </section>
 
       {/* Popup Component */}
-      <UserJourneyPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+      <UserJourneyPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
 
       {/* EV Filter Bar */}
-      <section className="container mx-auto my-12 px-4">
-        <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col md:flex-row md:items-center md:justify-between gap-6 border border-gray-200 transition-all duration-300">
-          <h2 className="text-2xl font-bold text-gray-800">Find Your Perfect EV</h2>
+      <section className="container mx-auto my-10 px-4">
+        <motion.div
+          className="bg-white p-6 md:p-8 rounded-2xl shadow-md flex flex-col md:flex-row md:items-center md:justify-between gap-6 border border-gray-200"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+            Find Your Perfect EV
+          </h2>
           <FilterBar onFilterChange={handleFilterChange} />
-        </div>
+        </motion.div>
       </section>
 
       {/* EV Cards Section */}
-      <section className="container mx-auto px-6 transition-all duration-300">
+      <section className="container mx-auto px-4 pb-12">
         {filteredEVs.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               {filteredEVs.slice(0, visibleCount).map((ev, index) => (
                 <EVCard key={index} ev={ev} />
               ))}
-            </div>
+            </motion.div>
 
             {/* View More Button */}
             {visibleCount < filteredEVs.length && (
-              <div className="flex justify-center mt-6">
-                <button
+              <div className="flex justify-center mt-8">
+                <motion.button
                   onClick={() => setVisibleCount((prev) => prev + 8)}
-                  className="px-6 py-3 text-lg font-semibold flex items-center gap-2 bg-gradient-to-r from-[#ff6600] to-[#ff4500] text-white rounded-full shadow-lg hover:scale-105 transition-all duration-300 hover:shadow-xl"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 text-lg font-semibold bg-gradient-to-r from-[#ff6600] to-[#ff4500] 
+                             text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <span> View More EVs</span>
-                </button>
+                  View More EVs 🚀
+                </motion.button>
               </div>
             )}
           </>
         ) : (
-          <p className="text-center text-gray-500 text-lg animate-pulse">No results found. Try different filters.</p>
+          <p className="text-center text-gray-500 text-lg animate-pulse">
+            No results found. Try different filters.
+          </p>
         )}
       </section>
     </div>

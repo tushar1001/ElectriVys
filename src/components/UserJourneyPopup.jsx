@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const UserJourneyPopup = ({ isOpen, onClose }) => {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"; // Prevent scrolling when popup is open
@@ -10,37 +13,80 @@ const UserJourneyPopup = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
+  const handleScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    setScrollProgress(progress);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full relative">
-        <button className="absolute top-3 right-3 text-gray-600" onClick={onClose}>
-          <X size={24} />
-        </button>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-gradient-to-br from-green-500 via-green-700 to-green-900 flex justify-center items-center z-50 overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
 
-        <h2 className="text-2xl font-bold text-center mb-4">
-          How <span className="text-green-500">ElectriVys</span> Helps You – Step by Step
-        </h2>
-
-        <div className="space-y-4 text-gray-700">
-          {[
-            { title: "1. Awareness (Acquisition)", desc: "Users discover ElectriVys through online ads, social media, and EV community discussions." },
-            { title: "2. Research & Exploration", desc: "Users compare different EV models, read expert reviews, and explore cost-of-ownership insights." },
-            { title: "3. Decision Making (Activation)", desc: "With AI-driven recommendations, users find the best EV based on range, budget, and brand preferences." },
-            { title: "4. Purchase & Financing", desc: "Users get financing options, EMI calculations, and dealer connections for a seamless purchase." },
-            { title: "5. Maintenance & Support", desc: "Access to maintenance tips, service centers, and 24/7 customer support for your EV." },
-            { title: "6. Charging Solutions", desc: "Find and book charging stations, get real-time availability, and payment options." },
-            { title: "7. Community & Updates", desc: "Join the EV community, get the latest updates, and participate in events and forums." },
-          ].map((step, index) => (
-            <div key={index} className="border-l-4 border-green-500 pl-3">
-              <div className="font-semibold">{step.title}</div>
-              <div className="text-sm">{step.desc}</div>
+          <div className="absolute w-full h-full bg-green-500 opacity-30 animate-pulse"></div>
+          <motion.div
+            className="w-full h-full flex flex-col justify-center items-center p-6 relative"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+          >
+            {/* Close Button */}
+            <button
+              className="absolute top-6 right-8 text-white hover:text-red-500 transition duration-300 transform hover:scale-125"
+              onClick={onClose}
+            >
+              <X size={40} />
+            </button>
+            <div className="bg-white bg-opacity-30 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col relative border border-white/20">
+              <div className="flex items-center justify-between w-full mb-6">
+                <h2 className="text-5xl font-extrabold text-dark text-center drop-shadow-lg flex-1">
+                  How <span className="text-yellow-400">ElectriVys</span> Helps You – Step by Step
+                </h2>
+                <div className="w-[40%] h-2 bg-gray-300 rounded-full overflow-hidden">
+                  <div
+                    className="h-2 bg-yellow-400 transition-all rounded-full"
+                    style={{ width: `${scrollProgress}%` }}
+                  />
+                </div>
+              </div>
+              <div
+                className="max-h-[70vh] overflow-y-auto w-full px-8 space-y-6 custom-scrollbar"
+                onScroll={handleScroll}
+              >
+                {[
+                  { title: "1. Awareness (Acquisition)", desc: "Users discover ElectriVys through online ads, social media, and EV community discussions." },
+                  { title: "2. Research & Exploration", desc: "Users compare different EV models, read expert reviews, and explore cost-of-ownership insights." },
+                  { title: "3. Decision Making (Activation)", desc: "With AI-driven recommendations, users find the best EV based on range, budget, and brand preferences." },
+                  { title: "4. Purchase & Financing", desc: "Users get financing options, EMI calculations, and dealer connections for a seamless purchase." },
+                  { title: "5. Maintenance & Support", desc: "Access to maintenance tips, service centers, and 24/7 customer support for your EV." },
+                  { title: "6. Charging Solutions", desc: "Find and book charging stations, get real-time availability, and payment options." },
+                  { title: "7. Community & Updates", desc: "Join the EV community, get the latest updates, and participate in events and forums." },
+                ].map((step, index) => (
+                  <motion.div
+                    key={index}
+                    className="border-l-4 border-yellow-400 pl-6 py-5 bg-white bg-opacity-60 rounded-lg shadow-lg transition duration-300 hover:bg-opacity-90 hover:shadow-2xl"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="text-2xl font-semibold text-gray-900">{step.title}</div>
+                    <div className="text-lg text-gray-800">{step.desc}</div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
