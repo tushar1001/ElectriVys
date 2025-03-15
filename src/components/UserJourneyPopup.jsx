@@ -7,7 +7,7 @@ const UserJourneyPopup = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"; // Prevent scrolling when popup is open
+      document.body.style.overflow = "hidden"; // Prevent background scroll
     } else {
       document.body.style.overflow = "auto";
     }
@@ -25,40 +25,46 @@ const UserJourneyPopup = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-gradient-to-br from-green-500 via-green-700 to-green-900 flex justify-center items-center z-50 overflow-hidden"
+          className="fixed inset-0 bg-gradient-to-br from-green-500 via-green-700 to-green-900 flex justify-center items-center z-50 overflow-hidden px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-
+          {/* Background Pulse Effect */}
           <div className="absolute w-full h-full bg-green-500 opacity-30 animate-pulse"></div>
+
           <motion.div
-            className="w-full h-full flex flex-col justify-center items-center p-6 relative"
+            className="w-full max-w-5xl h-[90vh] flex flex-col justify-center items-center p-4 md:p-6 relative"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
           >
-            {/* Close Button */}
+            {/* 🔹 Close Button (Fixed at the Top-Right Corner) */}
             <button
-              className="absolute top-6 right-8 text-white hover:text-red-500 transition duration-300 transform hover:scale-125"
+              className="absolute top-2 right-1 md:top-4 md:right-4 z-50 text-white hover:text-red-500 transition duration-300 transform hover:scale-110"
               onClick={onClose}
             >
-              <X size={40} />
+              <X className="w-8 h-8 md:w-10 md:h-10" />
             </button>
-            <div className="bg-white bg-opacity-30 backdrop-blur-xl p-10 rounded-3xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col relative border border-white/20">
-              <div className="flex items-center justify-between w-full mb-6">
-                <h2 className="text-5xl font-extrabold text-dark text-center drop-shadow-lg flex-1">
+
+            {/* Popup Content */}
+            <div className="bg-white bg-opacity-30 backdrop-blur-xl p-5 md:p-8 rounded-3xl shadow-2xl w-full max-w-4xl h-[85vh] flex flex-col relative border border-white/20">
+              {/* Title and Scroll Progress */}
+              <div className="flex flex-col md:flex-row items-center justify-between w-full mb-4 md:mb-6 space-y-4 md:space-y-0">
+                <h2 className="text-2xl md:text-4xl font-extrabold text-dark text-center drop-shadow-lg">
                   How <span className="text-yellow-400">ElectriVys</span> Helps You – Step by Step
                 </h2>
-                <div className="w-[40%] h-2 bg-gray-300 rounded-full overflow-hidden">
+                <div className="w-full md:w-[40%] h-2 bg-gray-300 rounded-full overflow-hidden">
                   <div
                     className="h-2 bg-yellow-400 transition-all rounded-full"
                     style={{ width: `${scrollProgress}%` }}
                   />
                 </div>
               </div>
+
+              {/* Steps Section */}
               <div
-                className="max-h-[70vh] overflow-y-auto w-full px-8 space-y-6 custom-scrollbar"
+                className="max-h-[70vh] overflow-y-auto w-full px-3 md:px-6 space-y-3 md:space-y-5 custom-scrollbar"
                 onScroll={handleScroll}
               >
                 {[
@@ -72,13 +78,13 @@ const UserJourneyPopup = ({ isOpen, onClose }) => {
                 ].map((step, index) => (
                   <motion.div
                     key={index}
-                    className="border-l-4 border-yellow-400 pl-6 py-5 bg-white bg-opacity-60 rounded-lg shadow-lg transition duration-300 hover:bg-opacity-90 hover:shadow-2xl"
+                    className="border-l-4 border-yellow-400 pl-3 md:pl-5 py-2 md:py-4 bg-white bg-opacity-60 rounded-lg shadow-lg transition duration-300 hover:bg-opacity-90 hover:shadow-2xl"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="text-2xl font-semibold text-gray-900">{step.title}</div>
-                    <div className="text-lg text-gray-800">{step.desc}</div>
+                    <div className="text-base md:text-xl font-semibold text-gray-900">{step.title}</div>
+                    <div className="text-sm md:text-lg text-gray-800">{step.desc}</div>
                   </motion.div>
                 ))}
               </div>

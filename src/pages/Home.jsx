@@ -1,28 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import EVCard from "../components/EVCard";
 import evOptions from "../data/evOptions";
 import UserJourneyPopup from "../components/UserJourneyPopup";
 import FilterBar from "../components/FilterBar";
 import NewsSection from "../components/NewsSection";
-import { motion } from "framer-motion";
 
 const Home = () => {
   const [filteredEVs, setFilteredEVs] = useState(evOptions);
   const [visibleCount, setVisibleCount] = useState(8);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/");
+  }, [navigate]);
 
   const handleFilterChange = (filters) => {
-    const filtered = evOptions.filter((ev) => {
-      return Object.keys(filters).every((key) => {
+    const filtered = evOptions.filter((ev) =>
+      Object.keys(filters).every((key) => {
         if (!filters[key] || filters[key] === "All") return true;
-        if (key === "range") return ev.range === filters[key];
-        if (key === "type") return ev.type === filters[key];
-        if (key === "brand") return ev.brand === filters[key];
-        if (key === "battery") return ev.battery === filters[key];
         return ev[key] === filters[key];
-      });
-    });
+      })
+    );
     setFilteredEVs(filtered);
     setVisibleCount(8);
   };
